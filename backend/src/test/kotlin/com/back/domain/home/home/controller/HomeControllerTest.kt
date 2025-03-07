@@ -1,6 +1,5 @@
-package com.back.domain.post.post.controller
+package com.back.domain.home.home.controller
 
-import com.back.domain.post.post.service.PostService
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,42 +9,30 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @Transactional
-class ApiV1PostControllerTest {
-    @Autowired
-    private lateinit var postService: PostService
-
+class HomeControllerTest {
     @Autowired
     private lateinit var mvc: MockMvc
 
     @Test
-    @DisplayName("다건 조회")
+    @DisplayName("메인")
     fun t1() {
         val resultActions = mvc
             .perform(
-                get("/api/v1/posts")
+                get("/")
             )
             .andDo(print())
 
-        val posts = postService
-            .findAll()
-
         resultActions
-            .andExpect(handler().handlerType(ApiV1PostController::class.java))
-            .andExpect(handler().methodName("getItems"))
+            .andExpect(handler().handlerType(HomeController::class.java))
+            .andExpect(handler().methodName("main"))
             .andExpect(status().isOk())
-
-        for (i in posts.indices) {
-            val post = posts[i]
-            resultActions
-                .andExpect(jsonPath("$[$i].id").value(post.id))
-                .andExpect(jsonPath("$[$i].title").value(post.title))
-        }
     }
 }
