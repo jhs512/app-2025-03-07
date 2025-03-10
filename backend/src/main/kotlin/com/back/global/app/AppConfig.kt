@@ -20,6 +20,7 @@ class AppConfig {
         private lateinit var objectMapper: ObjectMapper
         private lateinit var siteFrontUrl: String
         private lateinit var siteBackUrl: String
+        private lateinit var siteCookieDomain: String
 
         @JvmStatic
         fun isProd(): Boolean = environment.matchesProfiles("prod")
@@ -41,6 +42,9 @@ class AppConfig {
 
         @JvmStatic
         fun getSiteBackUrl(): String = siteBackUrl
+
+        @JvmStatic
+        fun getSiteCookieDomain(): String = siteCookieDomain
     }
 
     @Autowired
@@ -61,5 +65,10 @@ class AppConfig {
     @Value("\${custom.site.backUrl}")
     fun setSiteBackUrl(siteBackUrl: String) {
         Companion.siteBackUrl = siteBackUrl
+    }
+
+    @Value("\${custom.site.cookieDomain}")
+    fun setSiteCookieDomain(siteCookieDomain: String) {
+        Companion.siteCookieDomain = siteCookieDomain
     }
 }
