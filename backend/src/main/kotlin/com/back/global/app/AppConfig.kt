@@ -21,6 +21,7 @@ class AppConfig {
         private lateinit var siteFrontUrl: String
         private lateinit var siteBackUrl: String
         private lateinit var siteCookieDomain: String
+        private lateinit var genFileDirPath: String
 
         @JvmStatic
         fun isProd(): Boolean = environment.matchesProfiles("prod")
@@ -45,6 +46,9 @@ class AppConfig {
 
         @JvmStatic
         fun getSiteCookieDomain(): String = siteCookieDomain
+
+        @JvmStatic
+        fun getGenFileDirPath(): String = genFileDirPath
     }
 
     @Autowired
@@ -70,5 +74,10 @@ class AppConfig {
     @Value("\${custom.site.cookieDomain}")
     fun setSiteCookieDomain(siteCookieDomain: String) {
         Companion.siteCookieDomain = siteCookieDomain
+    }
+
+    @Value("\${custom.genFile.dirPath}")
+    fun setGenFileDirPath(genFileDirPath: String) {
+        Companion.genFileDirPath = genFileDirPath
     }
 }
