@@ -1,6 +1,4 @@
 spring:
-  autoconfigure:
-    exclude:
   datasource:
     url: jdbc:postgresql://jhs512-db-1.internal:5432/app_2025_03_07_prod
     username: postgres
