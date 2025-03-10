@@ -49,6 +49,25 @@ class HomeController(
         return rq.getCookieValue(name) ?: ""
     }
 
+    @GetMapping("/session/{name}/{value}")
+    @ResponseBody
+    fun setSession(
+        @PathVariable name: String,
+        @PathVariable value: String
+    ): String {
+        rq.setSession(name, value)
+
+        return "${name}=${value}"
+    }
+
+    @GetMapping("/session/{name}")
+    @ResponseBody
+    fun getSession(
+        @PathVariable name: String
+    ): String {
+        return rq.getSessionValueAsStr(name) ?: ""
+    }
+
     @GetMapping("/newFile")
     @ResponseBody
     fun newFile(): String {
